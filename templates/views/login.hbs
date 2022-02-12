@@ -10,13 +10,14 @@
 </head>
 
 <body>
-    <div class="container">
-        {{>navbar}}
-        <div id="content">
-            <h1>hello student</h1>
-        </div>
-    </div>
-
+    <form action="/login" method="post">
+        <input type="email" name="email">
+        <input type="password" name="password">
+        <button type="submit">Login</button>
+    </form>
+    {{#if messages.error}}
+        <div style="text-align:center ;color:red;">{{messages.error}} </div>
+    {{/if}}
 </body>
 
 </html>
