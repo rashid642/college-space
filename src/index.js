@@ -4,6 +4,14 @@ const hbs = require("hbs");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
+const {
+    checkAuthenticated,
+    checkNotAuthenticated,
+    checkIsTeacher,
+    checkIsNotTeacher
+} = require("./utils/middleware");
+const studentRoutes = require("./routes/studentRoutes");
+const teacherRoutes = require("./routes/teacherRoutes");
 // const upload = require("express-fileupload");
 const app = express();
 
@@ -47,56 +55,26 @@ initializePassport(passport, email => {
     })
 });
 
-app.get("/", [checkAuthenticated, checkIsNotTeacher], (req, res)=>{
-    res.render("index",{
-        user: req.user
-    });
-})
+
 app.get("/login",checkNotAuthenticated, (req, res)=>{
     res.render("login");
 })
-app.get("/trdashboard",[checkAuthenticated, checkIsTeacher], (req, res)=>{
-    res.render("trdashboard");
-})
+
+
 app.post("/login",checkNotAuthenticated, passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: true,
 }))
+
 app.get("/logout", checkAuthenticated, (req, res) => {
     req.logOut();
     console.log('Log out done');
     res.redirect("/login");
 })
 
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-    res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/')
-    }
-    next()
-}
-
-function checkIsTeacher(req, res, next) {
-    if (req.user.status === "teacher") {
-        return next();
-    } else {
-        res.redirect("/");
-    }
-}
-function checkIsNotTeacher(req, res, next) {
-    if (req.user.status !== "teacher") {
-        return next();
-    } else {
-        res.redirect("/trdashboard");
-    }
-}
+app.use(studentRoutes);
+app.use(teacherRoutes);
 
 app.listen(3000,()=>{
     console.log("server is up");
