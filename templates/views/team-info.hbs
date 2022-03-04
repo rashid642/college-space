@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Teams</title>
+</head>
+<style>
+   .inner-container{
+       display: flex;
+   }
+   .left{
+       width: 40%;
+       border: 2px solid red;
+   }
+   .mid{
+       width: 40%;
+       border: 2px solid red;
+   }
+   .right{
+    border: 2px solid red;
+       width:20%;
+   }
+</style>
+
+<body>
+    <div class="container">
+        {{#if teacher}}
+            {{>trnavbar}}
+        {{else}}
+            {{>navbar}}
+        {{/if}}
+        <div id="content">
+            <h1>{{teamname}}</h1>
+            <div class="inner-container">
+            <div class="left">
+                <h1>Teachers</h1>
+                {{#each teachers}}
+                <p>{{this.email}}</p>
+                {{/each}}
+            </div>
+            <div class="mid">
+<h1>Students</h1>
+                {{#each students}}
+                <p>{{this.member}}</p>
+                {{/each}}
+            </div>
+            <div class="right">
+
+            </div>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+
+</html>

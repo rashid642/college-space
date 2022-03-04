@@ -42,7 +42,6 @@ initializePassport(passport, email => {
     return new Promise((resolve, reject) => {
         const sql = "SELECT * FROM `userdetail` WHERE `email` = '" + email + "'";
         connection.query(sql, (err, rows) => {
-            console.log(rows[0]);
             resolve(rows[0]);
         })
     })
@@ -60,7 +59,11 @@ app.get("/login",checkNotAuthenticated, (req, res)=>{
     res.render("login");
 })
 
-
+app.get("/test",(req, res) => {
+    res.send({
+        hello: "how are you"
+    })
+})
 app.post("/login",checkNotAuthenticated, passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",

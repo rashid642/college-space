@@ -5,7 +5,6 @@ function checkAuthenticated(req, res, next) {
     res.redirect('/login')
 }
 
-const passport = require("passport");
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return res.redirect('/')
@@ -20,6 +19,7 @@ function checkIsTeacher(req, res, next) {
         res.redirect("/");
     }
 }
+
 function checkIsNotTeacher(req, res, next) {
     if (req.user.status !== "teacher") {
         return next();

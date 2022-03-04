@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Teams</title>
+</head>
+<style>
+    .card {
+        /* Add shadows to create the "card" effect */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        width: 250px;
+    }
+
+    /* On mouse-over, add a deeper shadow */
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    /* Add some padding inside the card container */
+    .card-container {
+        padding: 2px 16px;
+    }
+
+    #head {
+        color: black;
+        text-align: center;
+    }
+
+    img {
+        margin: auto;
+    }
+
+    .teams {
+        display: flex;
+    }
+</style>
+
+<body>
+    <div class="container">
+        {{#if teacher}}
+            {{>trnavbar}}
+        {{else}}
+            {{>navbar}}
+        {{/if}}
+        <div id="content">
+            <h1 id="head">Your Teams</h1>
+            {{#if teacher}}
+            <div>
+                <a href="/create-teams"><button>Create Team</button></a>
+            </div>
+            {{/if}}
+            <div class="teams">
+                <div class="card">
+                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
+                    <div class="card-container">
+                        <h4><b>John Doe</b></h4>
+                        <p>Architect & Engineer</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
+                    <div class="card-container">
+                        <h4><b>John Doe</b></h4>
+                        <p>Architect & Engineer</p>
+                    </div>
+                </div>
+                {{#each rows}}
+                <div class="card">
+                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
+                    <div class="card-container">
+                        <a href="/team-info?team_name={{this.team_name}}"><h4><b>{{this.team_name}}</b></h4></a>
+                        <p>Architect & Engineer</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
