@@ -11,18 +11,49 @@
 <style>
    .inner-container{
        display: flex;
+       margin: 10px;
+       height: 90vh;
    }
    .left{
        width: 40%;
-       border: 2px solid red;
+       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+       margin: 10px;
+       padding: 10px;
+       
    }
    .mid{
        width: 40%;
-       border: 2px solid red;
+       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+       margin: 10px;
+       padding: 10px;
    }
    .right{
-    border: 2px solid red;
        width:20%;
+       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+       margin: 10px;
+       padding: 10px;
+   }
+   .side-btn{
+       display: block;
+    padding: 20px 30px;
+    width: 95%;
+    margin: 40px auto;
+    color: white;
+    background: black;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-size: 14px;
+   }
+   .side-btn:hover{
+       cursor: pointer;
+   }
+   .students{
+       padding: 5px 10px;
+    font-size: 20px;
+   }
+   .team-name{
+       text-align: center;
+    padding: 5px 0px;
    }
 </style>
 
@@ -34,22 +65,33 @@
             {{>navbar}}
         {{/if}}
         <div id="content">
-            <h1>{{teamname}}</h1>
+            <h1 class="team-name">{{teamname}}</h1>
             <div class="inner-container">
             <div class="left">
                 <h1>Teachers</h1>
                 {{#each teachers}}
-                <p>{{this.email}}</p>
+                <p class="students">{{this.email}}</p>
                 {{/each}}
             </div>
             <div class="mid">
 <h1>Students</h1>
                 {{#each students}}
-                <p>{{this.member}}</p>
+                <p class="students">{{this.member}}</p>
                 {{/each}}
             </div>
             <div class="right">
-
+                {{#if teacher}}
+                <button class="side-btn">Create Assignment</button>
+                <button class="side-btn">Add Members</button>
+                <button class="side-btn">View Assignments</button>
+                <button class="side-btn">Set Meeting</button>
+                <button class="side-btn">Upload Notes</button>
+                {{else}}
+                    <button class="side-btn">Submit Assignment</button>
+                <button class="side-btn">Meetings</button>
+                <button class="side-btn">Notes</button>
+                <button class="side-btn">Set Meeting</button>
+                {{/if}}
             </div>
             </div>
             

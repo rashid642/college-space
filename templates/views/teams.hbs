@@ -37,7 +37,22 @@
 
     .teams {
         display: flex;
+        flex-wrap: wrap;
     }
+    .side-btn{
+       display: block;
+    padding: 10px 20px;
+    width: 50%;
+    margin: 40px auto;
+    color: white;
+    background: black;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-size: 14px;
+   }
+   .side-btn:hover{
+       cursor: pointer;
+   }
 </style>
 
 <body>
@@ -51,10 +66,24 @@
             <h1 id="head">Your Teams</h1>
             {{#if teacher}}
             <div>
-                <a href="/create-teams"><button>Create Team</button></a>
+                <a href="/create-teams"><button class="side-btn">Create Team</button></a>
             </div>
             {{/if}}
             <div class="teams">
+                <div class="card">
+                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
+                    <div class="card-container">
+                        <h4><b>John Doe</b></h4>
+                        <p>Architect & Engineer</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
+                    <div class="card-container">
+                        <h4><b>John Doe</b></h4>
+                        <p>Architect & Engineer</p>
+                    </div>
+                </div>
                 <div class="card">
                     <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
                     <div class="card-container">

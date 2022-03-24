@@ -7,28 +7,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Teams</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <style>
+    #form {
+        text-align: center;
+    }
 
+    #heading{
+        margin: 20px;
+    }
+
+    .form-input{
+    padding: 10px;
+    }
+    label{
+font-size: 20px;
+    margin: 10px;
+    }
+    input{
+    padding: 10px 20px;
+    width: 200px;
+    }
+    .side-btn{
+       display: block;
+    padding: 10px 20px;
+    width: 50%;
+    margin: 40px auto;
+    color: white;
+    background: black;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-size: 14px;
+   }
+   .side-btn:hover{
+       cursor: pointer;
+   }
 </style>
 
 <body>
     <div class="container">
         {{>trnavbar}}
         <div id="content">
-            <form>
+            <form id="form">
+                <div id="form-inside">
+                    <h1 class="heading">Create Team</h1>
+                    <div class="form-input">
+                        <label>Team Name: </label>
+                        <input type="text" name="team-name" required placeholder="Team Name">
+                    </div>
+                    <div class="form-input">
+                        <label>Team Description</label>
+                    <input type="text" name="team-desc">
+                    </div>
+                    <div id="add-student" class="form-input">
+                        <label>Add Students</label>
+                        <input type="text" name="team-mem">
+                    </div>
+                    
+                    
+                </div>
 
-                <p id="email">{{tremail}}</p>
-                <h1>Create Team</h1>
-                <label>Team Name: </label>
-                <input type="text" name="team-name" required placeholder="Team Name">
-                <label>Team Description</label>
-                <input type="text" name="team-desc">
-                <label>Add Students</label>
-                <input type="text" name="team-mem">
-                <button id="addMore">Add more Students</button>
-                <button id="create" type="submit">Create</button>
+                <button id="addMore"class="side-btn" >Add more Students</button>
+                <button id="create" class="side-btn" type="submit">Create</button>
             </form>
             <p id="message"></p>
         </div>
@@ -37,7 +79,7 @@
         document.getElementById("addMore").addEventListener("click", (e) => {
             e.preventDefault();
             console.log("clicked")
-            content = document.getElementById("content");
+            content = document.getElementById("add-student");
             var ele = document.createElement("input");
             ele.setAttribute("name", "team-mem");
             content.appendChild(ele);
@@ -66,10 +108,10 @@
                     memb: it.value
                 }
                 $.post("/add-student", teamMem,
-                function (data, status) {
-                    console.log(data.message)
-                    return false;
-                });
+                    function (data, status) {
+                        console.log(data.message)
+                        return false;
+                    });
             }
             const teacher = document.getElementById("email").textContent;
             const teacherData = {
@@ -82,7 +124,7 @@
                     return false;
                 });
             msg.innerText = "Team created....";
-            
+
         })
     </script>
 </body>
