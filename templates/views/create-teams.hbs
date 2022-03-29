@@ -50,6 +50,7 @@ font-size: 20px;
     <div class="container">
         {{>trnavbar}}
         <div id="content">
+            <p id="email">{{tremail}}</p>
             <form id="form">
                 <div id="form-inside">
                     <h1 class="heading">Create Team</h1>
@@ -92,14 +93,13 @@ font-size: 20px;
 
             msg = document.getElementById("message");
             msg.innerText = "Creating team....";
-
+            console.log(teamMem)
             const teamData = {
                 teamName,
                 teamDesc
             }
             $.post("/create-team", teamData,
                 function (data, status) {
-                    console.log(data.message)
                     return false;
                 });
             for (const it of teamMem) {
@@ -109,7 +109,6 @@ font-size: 20px;
                 }
                 $.post("/add-student", teamMem,
                     function (data, status) {
-                        console.log(data.message)
                         return false;
                     });
             }
@@ -120,7 +119,6 @@ font-size: 20px;
             }
             $.post("/add-teacher", teacherData,
                 function (data, status) {
-                    console.log(data.message)
                     return false;
                 });
             msg.innerText = "Team created....";

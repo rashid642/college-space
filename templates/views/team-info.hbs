@@ -6,98 +6,236 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pop-up.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <title>Teams</title>
 </head>
 <style>
-   .inner-container{
-       display: flex;
-       margin: 10px;
-       height: 90vh;
-   }
-   .left{
-       width: 40%;
-       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-       margin: 10px;
-       padding: 10px;
-       
-   }
-   .mid{
-       width: 40%;
-       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-       margin: 10px;
-       padding: 10px;
-   }
-   .right{
-       width:20%;
-       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-       margin: 10px;
-       padding: 10px;
-   }
-   .side-btn{
-       display: block;
-    padding: 20px 30px;
-    width: 95%;
-    margin: 40px auto;
-    color: white;
-    background: black;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    font-size: 14px;
-   }
-   .side-btn:hover{
-       cursor: pointer;
-   }
-   .students{
-       padding: 5px 10px;
-    font-size: 20px;
-   }
-   .team-name{
-       text-align: center;
-    padding: 5px 0px;
-   }
+    .inner-container {
+        display: flex;
+        margin: 10px;
+        height: 90vh;
+    }
+
+    .left {
+        width: 40%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        margin: 10px;
+        padding: 10px;
+
+    }
+
+    .mid {
+        width: 40%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .right {
+        width: 20%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .side-btn {
+        display: block;
+        padding: 20px 30px;
+        width: 95%;
+        margin: 40px auto;
+        color: white;
+        background: black;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        font-size: 14px;
+    }
+
+    .side-btn:hover {
+        cursor: pointer;
+    }
+
+    .students {
+        padding: 5px 10px;
+        font-size: 20px;
+    }
+
+    .team-name {
+        text-align: center;
+        padding: 5px 0px;
+    }
+
+    h2 {
+        text-align: center;
+        padding: 10px 0px;
+    }
 </style>
 
 <body>
     <div class="container">
         {{#if teacher}}
-            {{>trnavbar}}
+        {{>trnavbar}}
         {{else}}
-            {{>navbar}}
+        {{>navbar}}
         {{/if}}
         <div id="content">
             <h1 class="team-name">{{teamname}}</h1>
             <div class="inner-container">
-            <div class="left">
-                <h1>Teachers</h1>
-                {{#each teachers}}
-                <p class="students">{{this.email}}</p>
-                {{/each}}
-            </div>
-            <div class="mid">
-<h1>Students</h1>
-                {{#each students}}
-                <p class="students">{{this.member}}</p>
-                {{/each}}
-            </div>
-            <div class="right">
-                {{#if teacher}}
-                <button class="side-btn">Create Assignment</button>
-                <button class="side-btn">Add Members</button>
-                <button class="side-btn">View Assignments</button>
-                <button class="side-btn">Set Meeting</button>
-                <button class="side-btn">Upload Notes</button>
-                {{else}}
+                <div class="left">
+                    <h1>Teachers</h1>
+                    {{#each teachers}}
+                    <p class="students">{{this.email}}</p>
+                    {{/each}}
+                </div>
+                <div class="mid">
+                    <h1>Students</h1>
+                    {{#each students}}
+                    <p class="students">{{this.member}}</p>
+                    {{/each}}
+                </div>
+                <div class="right">
+                    {{#if teacher}}
+                    <button class="side-btn"
+                        onclick="document.getElementById('createAssignment').style.display='block'">Create
+                        Assignment</button>
+                    <button class="side-btn" onclick="document.getElementById('addMembers').style.display='block'">Add
+                        Members</button>
+                    <button class="side-btn">View Assignments</button>
+                    <button class="side-btn" onclick="document.getElementById('setmeeting').style.display='block'">Set
+                        Meeting</button>
+                    <button class="side-btn">Upload Notes</button>
+                    {{else}}
                     <button class="side-btn">Submit Assignment</button>
-                <button class="side-btn">Meetings</button>
-                <button class="side-btn">Notes</button>
-                <button class="side-btn">Set Meeting</button>
-                {{/if}}
+                    <button class="side-btn">Meetings</button>
+                    <button class="side-btn">Notes</button>
+                    {{/if}}
+                </div>
             </div>
-            </div>
-            
+
         </div>
+    </div>
+    {{!-- assignment --}}
+    <div id="createAssignment" class="modal">
+
+        <form class="modal-content animate" id="create-assignment">
+            <h2>Create Assignment</h2>
+            <div class="pop-container">
+                <label for="assigenment-name"><b>Assignment Name</b></label>
+                <input type="text" placeholder="Enter Assignment Name" name="assigenment-name" required>
+
+                <label for="assignment-description"><b>Description</b></label>
+                <input type="text" placeholder="Enter Assignment Description" name="assignment-description" required>
+                <label for="due-date"><b>Due Date</b></label>
+                <input type="datetime-local" id="birthdaytime" name="due-date" required>
+
+                <button type="submit">Create</button>
+            </div>
+            <p id="team-created" style="text-align: center; color: green"></p>
+            <div class="pop-container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('createAssignment').style.display='none'"
+                    class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    {{!-- adding memebers --}}
+    <div id="addMembers" class="modal">
+
+        <form class="modal-content animate" id="add-members">
+            <h2>Add Members</h2>
+            <div class="pop-container">
+                <label for="mem-email"><b>Email of the member</b></label>
+                <input type="text" placeholder="Enter Email" name="mem-email" required>
+                <button type="submit">Add Member</button>
+            </div>
+            <p id="memadded" style="text-align: center; color: green"></p>
+            <div class="pop-container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('addMembers').style.display='none'"
+                    class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    {{!-- set meetings --}}
+    <div id="setmeeting" class="modal">
+        <form class="modal-content animate" id="set-meeting">
+            <h2>Set Meeting</h2>
+            <div class="pop-container">
+                <label for="meeting-title"><b>Meeting Title</b></label>
+                <input type="text" placeholder="Enter Username" name="meeting-title" required>
+                <label for="meet-date"><b>Meeting Date and Time</b></label>
+                <input type="datetime-local" id="birthdaytime" name="meet-date" required>
+                <button type="submit">Set Meeting</button>
+            </div>
+            <p id="meeting-set" style="text-align: center; color: green"></p>
+            <div class="pop-container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('setmeeting').style.display='none'"
+                    class="cancelbtn">Cancel</button>
+            </div>
+        </form>
     </div>
 
 </body>
+<script>
+    var modal = document.getElementsByClassName("modal");
+    window.onclick = function (event) {
+        for (const it of modal) {
+            if (event.target == it) {
+                it.style.display = "none";
+            }
+        }
+    }
+    teamname = document.getElementsByClassName("team-name")[0].textContent;
+    document.getElementById("create-assignment").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const assigenmentname = document.getElementsByName("assigenment-name")[0].value;
+        const assignmentdescription = document.getElementsByName("assignment-description")[0].value;
+        const duedate = document.getElementsByName("due-date")[0].value;
+        const teamcreated = document.getElementById("team-created");
+        $.post("/create-assignment", {
+            assigenmentname,
+            assignmentdescription,
+            duedate,
+            teamname
+        },
+            function (data, status) {
+                assigenmentname.value = "";
+                assignmentdescription.value = "";
+                teamcreated.innerText = "Assignment Created"
+                return false;
+            });
+    })
+
+    document.getElementById("add-members").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const mememail = document.getElementsByName("mem-email")[0].value;
+        const memadded = document.getElementById("memadded");
+        $.post("/add-student", {
+            teamName: teamname,
+            memb: mememail
+        },
+            function (data, status) {
+                memadded.innerText = "Member Added"
+                return false;
+            });
+    })
+
+    document.getElementById("set-meeting").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const meetingtitle = document.getElementsByName("meeting-title")[0].value;
+        const meetingdate = document.getElementsByName("meet-date")[0].value;
+        const meetingset = document.getElementById("meeting-set");
+        $.post("/set-meeting", {
+            teamname,
+            meetingdate,
+            meetingtitle
+        },
+            function (data, status) {
+                meetingset.innerText = "Meeting Set"
+                return false;
+            });
+    })
+</script>
 
 </html>

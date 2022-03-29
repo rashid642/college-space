@@ -19,7 +19,7 @@ router.get("/create-teams", [checkAuthenticated, checkIsTeacher], (req, res)=>{
     })
 })
 router.post("/create-team",[checkAuthenticated, checkIsTeacher], (req, res)=>{
-    console.log(req.body);
+    console.log("team",req.body);
     const teamName = req.body.teamName;
     const teamDesc = req.body.teamDesc;
     try{
@@ -35,7 +35,7 @@ router.post("/create-team",[checkAuthenticated, checkIsTeacher], (req, res)=>{
     }
 })
 router.post("/add-student",[checkAuthenticated, checkIsTeacher],(req, res) => {
-    console.log(req.body);
+    console.log("student:", req.body);
     const teamName = req.body.teamName;
     const memb = req.body.memb;
     try{
@@ -51,7 +51,7 @@ router.post("/add-student",[checkAuthenticated, checkIsTeacher],(req, res) => {
         }
 })
 router.post("/add-teacher",[checkAuthenticated, checkIsTeacher],(req, res) =>{
-    console.log(req.body);
+    console.log("teacher", req.body);
     const teamName = req.body.teamName;
     const teacher = req.body.teacher;
     try{
@@ -105,4 +105,41 @@ router.post("/notices", [checkAuthenticated, checkIsTeacher], (req, res)=>{
         }
 })
 
+router.post("/create-assignment",[checkAuthenticated, checkIsTeacher], (req, res)=>{
+    console.log(req.body);
+    const sql = "INSERT INTO `assignment` (`assignment-name`, `assignment-desc`, `teamname`, `duedate`, `creationdate`) VALUES ('"+req.body.assignmentname+"', '"+req.body.assignmentdescription+"', '"+req.body.teamname+"', '"+req.body.duedate+"', current_timestamp());"
+    try{
+        connection.query(sql, (err, rows) => {
+            if(!err){
+                return res.send({
+                    msg: "Assignment Created"
+                })
+            }else{
+                console.log(err)
+            }
+        })
+    }catch(e){
+        res.redirect("teams");
+        console.log(e);
+    }
+})
+router.post("/set-meeting",[checkAuthenticated, checkIsTeacher], (req, res)=>{
+    console.log(req.body);
+    const uniqueid = "123456788";
+    const sql = "INSERT INTO `meeting` (`teamname`, `uqid`, `date`, `title`) VALUES ('"+req.body.teamname+"', '"+uniqueid+"', '"+req.body.meetingdate+"', '"+req.body.meetingtitle+"');";
+    try{
+        connection.query(sql, (err, rows) => {
+            if(!err){
+                return res.send({
+                    msg: "Meeting Set"
+                })
+            }else{
+                console.log(err)
+            }
+        })
+    }catch(e){
+        res.redirect("teams");
+        console.log(e);
+    }
+})
 module.exports = router;
