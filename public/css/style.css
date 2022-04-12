@@ -9,11 +9,12 @@
     width: 15%;
     color: white;
     background: black;
-    height: 100vh;
+    min-height: 100vh;
 }
 #logo{
     margin: 20px 2px;
     text-align: center;
+    color: white;
 }
 .list{
     padding: 15px;

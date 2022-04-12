@@ -15,6 +15,10 @@ const teacherRoutes = require("./routes/teacherRoutes");
 // const upload = require("express-fileupload");
 const app = express();
 
+const server = require("http").Server(app);
+const io = require('socket.io')(server);
+const {v4: uuidv4} = require("uuid");
+
 const publicDirectory = path.join(__dirname,"../public");
 const viewsPath = path.join(__dirname, "../templates/views");
 const partialsPath = path.join(__dirname, "../templates/partials");
@@ -27,6 +31,8 @@ app.use(express.static(publicDirectory));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(upload());
+
+let hostname = "127.0.0.1";
 
 app.use(flash());
 app.use(session({
@@ -54,7 +60,6 @@ initializePassport(passport, email => {
     })
 });
 
-
 app.get("/login",checkNotAuthenticated, (req, res)=>{
     res.render("login");
 })
@@ -79,6 +84,36 @@ app.get("/logout", checkAuthenticated, (req, res) => {
 app.use(studentRoutes);
 app.use(teacherRoutes);
 
-app.listen(3000,()=>{
-    console.log("server is up");
+// app.listen(3000,()=>{
+//     console.log("server is up");
+// })
+
+app.get("/join", (req,res) => {
+    // res.send("This is homepage of my first express app")
+    // res.render('zoom');
+    res.redirect(`/${uuidv4()}`)
+});
+
+app.get('/:room' , (req, res) =>{
+    // console.log(req.params);
+    
+    res.render('room', { roomID : req.params.room})
 })
+
+io.on('connection', socket =>{
+    socket.on('join-room', (roomID, userId)=>{
+        console.log('Joined Room');
+        socket.join(roomID);
+        // socket.to(roomId).broadcast.emit('user-connected');
+        socket.broadcast.to(roomID).emit('user-connected', userId);
+
+        socket.on('message', message =>{
+            io.to(roomID).emit('createMessage', message);
+        })
+    })
+})
+
+const port = 3000;
+server.listen(port, () => {
+    console.log(`Server running at http://${hostname}:${port}/`)
+});

@@ -11,9 +11,11 @@
 <style>
     .card {
         /* Add shadows to create the "card" effect */
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
         transition: 0.3s;
         width: 250px;
+        margin: 20px;
+        padding-bottom: 10px;
     }
 
     /* On mouse-over, add a deeper shadow */
@@ -39,28 +41,30 @@
         display: flex;
         flex-wrap: wrap;
     }
-    .side-btn{
-       display: block;
-    padding: 10px 20px;
-    width: 50%;
-    margin: 40px auto;
-    color: white;
-    background: black;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    font-size: 14px;
-   }
-   .side-btn:hover{
-       cursor: pointer;
-   }
+
+    .side-btn {
+        display: block;
+        padding: 10px 20px;
+        width: 50%;
+        margin: 40px auto;
+        color: white;
+        background: black;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        font-size: 14px;
+    }
+
+    .side-btn:hover {
+        cursor: pointer;
+    }
 </style>
 
 <body>
     <div class="container">
         {{#if teacher}}
-            {{>trnavbar}}
+        {{>trnavbar}}
         {{else}}
-            {{>navbar}}
+        {{>navbar}}
         {{/if}}
         <div id="content">
             <h1 id="head">Your Teams</h1>
@@ -70,43 +74,21 @@
             </div>
             {{/if}}
             <div class="teams">
-                <div class="card">
-                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
-                    <div class="card-container">
-                        <h4><b>John Doe</b></h4>
-                        <p>Architect & Engineer</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
-                    <div class="card-container">
-                        <h4><b>John Doe</b></h4>
-                        <p>Architect & Engineer</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
-                    <div class="card-container">
-                        <h4><b>John Doe</b></h4>
-                        <p>Architect & Engineer</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
-                    <div class="card-container">
-                        <h4><b>John Doe</b></h4>
-                        <p>Architect & Engineer</p>
-                    </div>
-                </div>
+                {{#if rows}}
                 {{#each rows}}
                 <div class="card">
                     <img src="images/itachi.jpg" alt="Avatar" style="width:90%">
                     <div class="card-container">
-                        <a href="/team-info?team_name={{this.team_name}}"><h4><b>{{this.team_name}}</b></h4></a>
-                        <p>Architect & Engineer</p>
+                        <a href="/team-info?team_name={{this.team_name}}">
+                            <h4><b>{{this.team_name}}</b></h4>
+                        </a>
+                        {{!-- <p>Architect & Engineer</p> --}}
                     </div>
                 </div>
                 {{/each}}
+                {{else}}
+                <h1>You are added in no Team</h1>
+                {{/if}}
             </div>
 
         </div>
