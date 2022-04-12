@@ -6,6 +6,7 @@ const {
     checkIsTeacher,
     checkIsNotTeacher
 } = require("../utils/middleware");
+const path = require("path");
 const connection = require("../utils/dbconnection");
 
 router.get("/", [checkAuthenticated, checkIsNotTeacher], (req, res) => {
@@ -112,18 +113,17 @@ router.get("/time-table", [checkAuthenticated, checkIsNotTeacher], async (req, r
 
 router.get("/assignments", [checkAuthenticated, checkIsNotTeacher], async (req, res) => {
 
-    let sql = "SELECT * FROM `assignment` WHERE teamname IN (SELECT teamname from study_on WHERE member = 's1@g');";
+    let sql = "SELECT * FROM `assignment` WHERE teamname IN (SELECT teamname from study_on WHERE member = '"+req.user.email+"');";
     asgmt = await executeSQL(sql);
     console.log(asgmt)
     console.log("rednering");
     res.render("assginments", {
         asgmt
     })
-    
 })
 
 router.get("/pdf-viewer", (req, res) => {
-    res.render("pdf-viewer",{
+    res.render("pdf-viewer", {
         filename: req.query.filename
     });
 })
@@ -133,19 +133,24 @@ router.post("/assignment-upload", [checkAuthenticated, checkIsNotTeacher], (req,
     console.log(req.query.teamname);
     const uploadpath = path.join(__dirname, "../../public/uploads");
     // console.log(uploadpath);
-    var file = req.files.assignfile
-    const filename = file.name;
-    try {
-        const sql = "INSERT INTO `assignment-upload` (`id`, `teamname`, `assign-name`, `email`, `filename`) VALUES (NULL, '"+req.query.teamname+"', '"+req.query.assignName+"', '"+req.user.email+"', '"+filename+"');";
-        console.log(sql)
-        connection.query(sql, (err, rows) => {
-            file.mv(uploadpath + "/" + filename, (error) => {
-                res.redirect("team-info?team_name=" + req.query.teamname);
+    if (req.files) {
+        console.log("file exist")
+        var file = req.files.assignfile
+        const filename = file.name;
+        try {
+            const sql = "INSERT INTO `assignment-upload` (`id`, `teamname`, `assign-name`, `email`, `filename`) VALUES (NULL, '" + req.query.teamname + "', '" + req.query.assignName + "', '" + req.user.email + "', '" + filename + "');";
+            console.log(sql)
+            connection.query(sql, (err, rows) => {
+                file.mv(uploadpath + "/" + filename, (error) => {
+                    res.redirect("team-info?team_name=" + req.query.teamname);
+                })
             })
-
-        })
-    } catch (error) {
-        console.log(error);
+        } catch (error) {
+            console.log(error);
+            res.redirect("team-info?team_name=" + req.query.teamname);
+        }
+    }
+    else{
         res.redirect("team-info?team_name=" + req.query.teamname);
     }
 })

@@ -71,12 +71,12 @@
         text-align: center;
         padding: 10px 0px;
     }
-    .assign-box{
+
+    .assign-box {
         border: 1px solid black;
-    padding: 10px;
-    border-radius: 20px;
-}
-    
+        padding: 10px;
+        border-radius: 20px;
+    }
 </style>
 
 <body>
@@ -114,10 +114,14 @@
                     <button class="side-btn"
                         onclick="document.getElementById('upload-notes').style.display='block'">Upload Notes</button>
                     {{else}}
-                    <button class="side-btn" onclick="document.getElementById('submitAssignment').style.display='block'">Submit Assignment</button>
-                    <button class="side-btn" onclick="document.getElementById('notes').style.display='block'">Notes</button>
+                    <button class="side-btn"
+                        onclick="document.getElementById('submitAssignment').style.display='block'">Submit
+                        Assignment</button>
+                    <button class="side-btn"
+                        onclick="document.getElementById('notes').style.display='block'">Notes</button>
                     {{/if}}
-                    <button class="side-btn" onclick="document.getElementById('meeting').style.display='block'">Meetings</button>
+                    <button class="side-btn"
+                        onclick="document.getElementById('meeting').style.display='block'">Meetings</button>
                 </div>
             </div>
 
@@ -127,33 +131,34 @@
     {{!-- Submit assignment --}}
     <div id="submitAssignment" class="modal">
 
-        <form class="modal-content animate">
+        <div class="modal-content animate">
             <h2>Submit Assignment</h2>
             {{#if assignment}}
             {{#each assignment}}
             <div class="pop-container">
-                <form enctype="multipart/form-data" action="/assignment-upload?teamname={{teamname}}&assignName={{this.assignment-name}}" method="post">
-                <div class="assign-box">
-                <h3 for="assigenment-name"><b>Assignment Title</b></h3>
-                <p>{{this.assignment-name}}</p>
-                <h3 for="assigenment-name"><b>Assignment Description</b></h3>
-                <p>{{this.assignment-desc}}</p>
-                <h3 for="assigenment-name">Due Date</h3>
-                <p>{{this.duedate}}</p>
-                <input type="file" id="file-upload" name="assignfile" required>
-                <button type="submit">Upload</button>
-                </div>
+                <form enctype="multipart/form-data"
+                    action="/assignment-upload?teamname={{teamname}}&assignName={{this.assignment-name}}" method="post">
+                    <div class="assign-box">
+                        <h3 for="assigenment-name"><b>Assignment Title</b></h3>
+                        <p>{{this.assignment-name}}</p>
+                        <h3 for="assigenment-name"><b>Assignment Description</b></h3>
+                        <p>{{this.assignment-desc}}</p>
+                        <h3 for="assigenment-name">Due Date</h3>
+                        <p>{{this.duedate}}</p>
+                        <input type="file" id="file-upload" name="assignfile" required>
+                        <button type="submit">Upload</button>
+                    </div>
                 </form>
             </div>
             {{/each}}
             {{else}}
-                <h2>No Assignments</h2>
+            <h2>No Assignments</h2>
             {{/if}}
             <div class="pop-container" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('submitAssignment').style.display='none'"
                     class="cancelbtn">Cancel</button>
             </div>
-        </form>
+        </div>
     </div>
 
     {{!-- Meetings --}}
@@ -165,16 +170,16 @@
             {{#each meetings}}
             <div class="pop-container">
                 <div class="assign-box">
-                <h3 for="assigenment-name"><b>Meeting Title</b></h3>
-                <p>{{this.title}}</p>
-                <h3 for="assigenment-name">Date and time</h3>
-                <p>{{this.date}}</p>
-                <a href="/join">Join</a>
+                    <h3 for="assigenment-name"><b>Meeting Title</b></h3>
+                    <p>{{this.title}}</p>
+                    <h3 for="assigenment-name">Date and time</h3>
+                    <p>{{this.date}}</p>
+                    <a href="/room={{this.uqid}}">Join</a>
                 </div>
             </div>
             {{/each}}
             {{else}}
-                <h2>No Meeting</h2>
+            <h2>No Meeting</h2>
             {{/if}}
             <div class="pop-container" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('meeting').style.display='none'"
@@ -191,12 +196,12 @@
             {{#each notes}}
             <div class="pop-container">
                 <div class="assign-box">
-                <a href="pdf-viewer?filename={{this.filename}}" target="_blank">File : {{this.filename}}</a>
+                    <a href="pdf-viewer?filename={{this.filename}}" target="_blank">File : {{this.filename}}</a>
                 </div>
             </div>
             {{/each}}
             {{else}}
-                <h2>No Notes</h2>
+            <h2>No Notes</h2>
             {{/if}}
             <div class="pop-container" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('notes').style.display='none'"
@@ -265,7 +270,7 @@
             </div>
         </form>
     </div>
-    
+
     {{!-- Upload notes --}}
     <div id="upload-notes" class="modal">
         <form class="modal-content animate" enctype="multipart/form-data" action="/notes-upload?teamname={{teamname}}"
