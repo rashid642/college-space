@@ -156,7 +156,7 @@ router.post("/assignment-upload", [checkAuthenticated, checkIsNotTeacher], (req,
 })
 const getStudents = (teamname) => {
     return new Promise((resolve, reject) => {
-        sql = "SELECT * FROM `study_on` WHERE `team_name` LIKE '" + teamname + "'";
+        sql = "SELECT uname FROM study_on as s, userdetail as u WHERE `team_name` LIKE '" + teamname + "' AND s.member = u.email";
         try {
             connection.query(sql, (err, rows) => {
                 // console.log("rows inside st", rows)
@@ -175,7 +175,7 @@ const getStudents = (teamname) => {
 
 const getTeachers = (teamname) => {
     return new Promise((resolve, reject) => {
-        sql = "SELECT * FROM `teaches_on` WHERE `team_name` LIKE '" + teamname + "'";
+        sql = "SELECT uname FROM teaches_on as t, userdetail as u WHERE `team_name` LIKE '" + teamname + "' AND t.email = u.email";
         try {
             connection.query(sql, (err, rows) => {
                 // console.log("rows inside st", rows)

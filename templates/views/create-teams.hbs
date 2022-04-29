@@ -50,7 +50,7 @@ font-size: 20px;
     <div class="container">
         {{>trnavbar}}
         <div id="content">
-            <p id="email">{{tremail}}</p>
+            <p id="email" style="display: none;">{{tremail}}</p>
             <form id="form">
                 <div id="form-inside">
                     <h1 class="heading">Create Team</h1>
@@ -73,7 +73,7 @@ font-size: 20px;
                 <button id="addMore"class="side-btn" >Add more Students</button>
                 <button id="create" class="side-btn" type="submit">Create</button>
             </form>
-            <p id="message"></p>
+            <p id="message" style="text-align: center;font-size: 20px;color: green;"></p>
         </div>
     </div>
     <script>
@@ -85,6 +85,8 @@ font-size: 20px;
             ele.setAttribute("name", "team-mem");
             content.appendChild(ele);
         })
+        const teacher = document.getElementById("email").textContent;
+        console.log("teacher email",teacher)
         document.getElementById("create").addEventListener("click", (e) => {
             e.preventDefault();
             teamName = document.getElementsByName("team-name")[0].value;
@@ -112,7 +114,7 @@ font-size: 20px;
                         return false;
                     });
             }
-            const teacher = document.getElementById("email").textContent;
+            
             const teacherData = {
                 teamName,
                 teacher

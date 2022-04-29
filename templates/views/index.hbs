@@ -14,6 +14,25 @@
         margin: 20px;
         font-size: 50px;
     }
+
+    .inner-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .box-1 h1 {
+        font-size: 45px;
+        color: red;
+    }
+
+    .box-1 p {
+        font-size: 20px;
+    }
+
+    img {
+        height: 400px;
+    }
 </style>
 
 <body>
@@ -21,6 +40,15 @@
         {{>navbar}}
         <div id="content">
             <h1 class="heading">Welcome Student</h1>
+            <div class="inner-container">
+                <div class="box-1">
+                    <h1>College Space</h1>
+                    <p>Connecting Education</p>
+                </div>
+                <div class="box-2">
+                    <img src="images/exams.svg">
+                </div>
+            </div>
         </div>
     </div>
 
