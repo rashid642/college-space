@@ -20,6 +20,7 @@ router.get("/create-teams", [checkAuthenticated, checkIsTeacher], (req, res) => 
         tremail: req.user.email
     })
 })
+
 router.post("/create-team", [checkAuthenticated, checkIsTeacher], (req, res) => {
     // console.log("team", req.body);
     const teamName = req.body.teamName;

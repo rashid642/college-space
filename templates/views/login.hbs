@@ -107,10 +107,10 @@
 <body>
     <div class="box">
         <h1>College-Space</h1>
-        <form action="/login" method="post">
-            <labe class="labels">Email</labe>
+        <form action="http://127.0.0.1:3000/login" method="post">
+            <label class="labels">Email</label>
             <input type="email" name="email" placeholder="Email" required>
-            <labe class="labels">Password</labe>
+            <label class="labels">Password</label>
             <input type="password" name="password" placeholder="Password" required>
             <button>Login</button>
             {{#if messages.error}}

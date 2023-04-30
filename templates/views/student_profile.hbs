@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>Home</title>
+</head>
+<style>
+    .chart {
+        width: 500px;
+    }
+
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
+</style>
+
+<body>
+    <div class="container">
+        {{>navbar}}
+        <div id="content">
+            <p id="student">{{student}}</p>
+            <p id="teamname">{{team}}</p>
+            <div class="chart">
+                <canvas id="c1"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="c2"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="c3"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const teamname = document.getElementById("teamname").innerText;
+        const student = document.getElementById("student").innerText;
+        console.log(teamname, student);
+        let m;
+        let test = new Set();
+        let labels = [] // x axis
+        let datam = []; // y axis
+
+        fetch('http://127.0.0.1:3000/getMarks?test=PT1')
+            .then((response) => response.json())
+            .then((data) => {
+                for (let i = 0; i < data.marks.length; i++) {
+                    if (teamname === data.marks[i].teamname) {
+                        console.log(data.marks[i]);
+                        labels.push(data.marks[i].student);
+                        datam.push(data.marks[i].marks)
+                    }
+                }
+                const temp = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'PT1',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: datam,
+                    }]
+                };
+
+                const config = {
+                    type: 'line',
+                    data: temp,
+                    options: {}
+                };
+                const myChart = new Chart(
+                    document.getElementById('c1'),
+                    config
+                );
+            });
+            fetch('http://127.0.0.1:3000/getMarks?test=AS2')
+            .then((response) => response.json())
+            .then((data) => {
+                for (let i = 0; i < data.marks.length; i++) {
+                    if (teamname === data.marks[i].teamname) {
+                        console.log(data.marks[i]);
+                        labels.push(data.marks[i].student);
+                        datam.push(data.marks[i].marks)
+                    }
+                }
+                const temp = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'AS1',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: datam,
+                    }]
+                };
+
+                const config = {
+                    type: 'line',
+                    data: temp,
+                    options: {}
+                };
+                const myChart = new Chart(
+                    document.getElementById('c2'),
+                    config
+                );
+            });
+            fetch('http://127.0.0.1:3000/getMarks?test=PT2')
+            .then((response) => response.json())
+            .then((data) => {
+                for (let i = 0; i < data.marks.length; i++) {
+                    if (teamname === data.marks[i].teamname) {
+                        console.log(data.marks[i]);
+                        labels.push(data.marks[i].student);
+                        datam.push(data.marks[i].marks)
+                    }
+                }
+                const temp = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'PT2',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: datam,
+                    }]
+                };
+
+                const config = {
+                    type: 'line',
+                    data: temp,
+                    options: {}
+                };
+                const myChart = new Chart(
+                    document.getElementById('c3'),
+                    config
+                );
+            });
+        
+    </script>
+
+
+
+</body>
+
+</html>

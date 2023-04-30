@@ -8,10 +8,20 @@ const {
 } = require("../utils/middleware");
 const path = require("path");
 const connection = require("../utils/dbconnection");
+const { exitCode } = require("process");
 
 router.get("/", [checkAuthenticated, checkIsNotTeacher], (req, res) => {
     res.render("index", {
         user: req.user
+    });
+})
+router.get("/student_profile", [checkAuthenticated, checkIsTeacher], (req, res) => {
+    student = req.query.student;
+    team = req.query.team;
+    console.log("team", team);
+    res.render("student_profile", {
+        student,
+        team
     });
 })
 
@@ -70,6 +80,7 @@ router.get("/team-info", [checkAuthenticated], async (req, res) => {
     sql = "SELECT * FROM `notes` WHERE `teamname` LIKE '" + teamname + "'"
     let notes = await executeSQL(sql);
     let students = await getStudents(teamname);
+    // console.log(students);
     let teachers = await getTeachers(teamname);
     // console.log(assignment);
     // console.log("teacher", teachers);
@@ -156,7 +167,7 @@ router.post("/assignment-upload", [checkAuthenticated, checkIsNotTeacher], (req,
 })
 const getStudents = (teamname) => {
     return new Promise((resolve, reject) => {
-        sql = "SELECT uname FROM study_on as s, userdetail as u WHERE `team_name` LIKE '" + teamname + "' AND s.member = u.email";
+        sql = "SELECT * FROM study_on as s, userdetail as u WHERE `team_name` LIKE '" + teamname + "' AND s.member = u.email";
         try {
             connection.query(sql, (err, rows) => {
                 // console.log("rows inside st", rows)
@@ -192,7 +203,26 @@ const getTeachers = (teamname) => {
 
     })
 }
-
+router.post("/addMarks", [checkAuthenticated, checkIsTeacher], async (req, res) => {
+    const test = req.body.test;
+    const marks = req.body.mark;
+    const teamname = req.body.teamname;
+    const student = req.body.student;
+    const subject = req.body.subject;
+    const sql = "INSERT INTO `marks` (`id`, `teamname`, `test`, `marks`, `subject`, `student`) VALUES (NULL, '"+teamname+"', '"+test+"', '"+marks+"', '"+subject+"', '"+student+"');"
+    let temp = await executeSQL(sql);
+    res.send({
+        msg : "Marks Added"
+    })
+})
+router.get("/getMarks", [checkAuthenticated, checkIsTeacher], async (req, res) => {
+    let test = req.query.test;
+    const sql = "select * from marks where test = '"+test+"'";
+    let marks = await executeSQL(sql);
+    res.send({
+        marks
+    })
+})
 const executeSQL = (sql) => {
     return new Promise((resolve, reject) => {
         try {

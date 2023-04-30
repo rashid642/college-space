@@ -87,7 +87,7 @@
         {{>navbar}}
         {{/if}}
         <div id="content">
-            <h1 class="team-name">{{teamname}}</h1>
+            <h1 class="team-name" id="team-name">{{teamname}}</h1>
             <div class="inner-container">
                 <div class="left">
                     <h1>Teachers</h1>
@@ -97,8 +97,9 @@
                 </div>
                 <div class="mid">
                     <h1>Students</h1>
+                    {{teamname}}
                     {{#each students}}
-                    <p class="students">{{this.uname}}</p>
+                    <p><a class="students" href="/student_profile?student={{this.email}}&team={{this.team_name}}">{{this.uname}}</a> </p>
                     {{/each}}
                 </div>
                 <div class="right">
@@ -109,8 +110,7 @@
                     <button class="side-btn" onclick="document.getElementById('addMembers').style.display='block'">Add
                         Members</button>
                     <button class="side-btn">View Assignments</button>
-                    <button class="side-btn" onclick="document.getElementById('setmeeting').style.display='block'">Set
-                        Meeting</button>
+                    <button class="side-btn" onclick="document.getElementById('addMarks').style.display='block'">Add Marks</button>
                     <button class="side-btn"
                         onclick="document.getElementById('upload-notes').style.display='block'">Upload Notes</button>
                     {{else}}
@@ -252,20 +252,24 @@
         </form>
     </div>
 
-    {{!-- set meetings --}}
-    <div id="setmeeting" class="modal">
-        <form class="modal-content animate" id="set-meeting">
-            <h2>Set Meeting</h2>
+    {{!-- Adding Marks --}}
+    <div id="addMarks" class="modal">
+        <form class="modal-content animate" id="add-Marks">
+            <h2>Add Marks</h2>
             <div class="pop-container">
-                <label for="meeting-title"><b>Meeting Title</b></label>
-                <input type="text" placeholder="Enter Meeting title" name="meeting-title" required>
-                <label for="meet-date"><b>Meeting Date and Time</b></label>
-                <input type="datetime-local" id="birthdaytime" name="meet-date" required>
-                <button type="submit">Set Meeting</button>
+                <label for="meeting-title"><b>Subject</b></label>
+                <input type="text" placeholder="Enter Subject" id="subject" name="subject" required>
+                <label for="meet-date"><b>Exam Name</b></label>
+                <input type="text" placeholder="Enter Exam name" id="test" name="test" required>
+                {{#each students}}
+                    <div class="uname">{{this.uname}}</div>
+                    <input type="text" placeholder="Enter Marks" class="st_marks" name="{{this.email}}" required>
+                {{/each}}
+                <button type="submit">Add</button>
             </div>
-            <p id="meeting-set" style="text-align: center; color: green"></p>
+            <p id="add-marks" style="text-align: center; color: green"></p>
             <div class="pop-container" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('setmeeting').style.display='none'"
+                <button type="button" onclick="document.getElementById('addMarks').style.display='none'"
                     class="cancelbtn">Cancel</button>
             </div>
         </form>
@@ -334,20 +338,30 @@
             });
     })
 
-    document.getElementById("set-meeting").addEventListener("submit", (e) => {
+    document.getElementById("add-Marks").addEventListener("submit", (e) => {
         e.preventDefault();
-        const meetingtitle = document.getElementsByName("meeting-title")[0].value;
-        const meetingdate = document.getElementsByName("meet-date")[0].value;
-        const meetingset = document.getElementById("meeting-set");
-        $.post("/set-meeting", {
-            teamname,
-            meetingdate,
-            meetingtitle
-        },
-            function (data, status) {
-                meetingset.innerText = "Meeting Set"
-                return false;
-            });
+        const teamname = document.getElementsByClassName("team-name")[0].innerText;
+        const test = document.getElementById("test").value;
+        const subject = document.getElementById("subject").value;
+        let marks = document.getElementsByClassName("st_marks");
+        console.log(test, teamname);
+        for (const it of marks){
+            const student = it.name;
+            const mark = it.value;
+            console.log(student, mark);
+            $.post("/addMarks", {
+                test,
+                teamname,
+                student,
+                mark,
+                subject
+            },
+                function (data, status) {
+                    return false;
+                }); 
+                
+        } 
+        
     })
 </script>
 

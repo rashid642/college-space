@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2022 at 04:59 PM
+-- Generation Time: Jan 22, 2023 at 07:46 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
@@ -41,7 +41,7 @@ CREATE TABLE `assignment` (
 --
 
 INSERT INTO `assignment` (`assignment-name`, `assignment-desc`, `teamname`, `duedate`, `creationdate`, `id`) VALUES
-('Tutorial 1', 'LPP', 'Maths', '2022-04-15 20:14:00', '2022-04-12 20:15:03', 1);
+('Tutoiral 1', 'SEM IV tut 1', 'MPR', '2022-04-30 00:45:00', '2022-04-29 20:45:45', 1);
 
 -- --------------------------------------------------------
 
@@ -56,6 +56,51 @@ CREATE TABLE `assignment-upload` (
   `email` varchar(50) NOT NULL,
   `filename` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marks`
+--
+
+CREATE TABLE `marks` (
+  `id` int(11) NOT NULL,
+  `teamname` varchar(50) NOT NULL,
+  `test` varchar(50) NOT NULL,
+  `marks` int(11) NOT NULL,
+  `subject` varchar(50) NOT NULL,
+  `student` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `marks`
+--
+
+INSERT INTO `marks` (`id`, `teamname`, `test`, `marks`, `subject`, `student`) VALUES
+(1, 'Computer C1', 'PT1', 12, 'DBMS', 'rashid@gmail.com'),
+(2, 'Computer C1', 'PT1', 16, 'DBMS', 'rehan@gmail.com'),
+(3, 'Computer C1', 'PT1', 18, 'DBMS', 'yasin@gmail.com'),
+(4, 'Computer C1', 'PT1', 20, 'DBMS', 'amit@gmail.com'),
+(5, 'Computer C1', 'PT1', 20, 'DBMS', 'akhil@gmail.com'),
+(6, 'Computer C1', 'PT1', 16, 'DBMS', 'komalika@gmail.com'),
+(7, 'Computer C1', 'PT1', 15, 'DBMS', 'prem@gmail.com'),
+(8, 'Computer C1', 'PT1', 12, 'DBMS', 'daksha@gmail.com'),
+(9, 'Computer C1', 'AS2', 78, 'OS', 'rashid@gmail.com'),
+(10, 'Computer C1', 'AS2', 65, 'OS', 'rehan@gmail.com'),
+(11, 'Computer C1', 'AS2', 35, 'OS', 'yasin@gmail.com'),
+(12, 'Computer C1', 'AS2', 56, 'OS', 'amit@gmail.com'),
+(13, 'Computer C1', 'AS2', 65, 'OS', 'akhil@gmail.com'),
+(14, 'Computer C1', 'AS2', 45, 'OS', 'komalika@gmail.com'),
+(15, 'Computer C1', 'AS2', 76, 'OS', 'prem@gmail.com'),
+(16, 'Computer C1', 'AS2', 50, 'OS', 'daksha@gmail.com'),
+(17, 'Computer C1', 'PT2', 20, 'OS', 'rashid@gmail.com'),
+(18, 'Computer C1', 'PT2', 16, 'OS', 'rehan@gmail.com'),
+(19, 'Computer C1', 'PT2', 18, 'OS', 'yasin@gmail.com'),
+(20, 'Computer C1', 'PT2', 12, 'OS', 'amit@gmail.com'),
+(21, 'Computer C1', 'PT2', 19, 'OS', 'akhil@gmail.com'),
+(22, 'Computer C1', 'PT2', 20, 'OS', 'komalika@gmail.com'),
+(23, 'Computer C1', 'PT2', 18, 'OS', 'prem@gmail.com'),
+(24, 'Computer C1', 'PT2', 12, 'OS', 'daksha@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -76,7 +121,9 @@ CREATE TABLE `meeting` (
 --
 
 INSERT INTO `meeting` (`teamname`, `uqid`, `date`, `title`, `id`) VALUES
-('Maths', 'd5ad743f-28b9-41f1-81b8-c1d285503d0e', '2022-04-13 20:16:00', 'Maths LPP', 1);
+('Maths', 'd5ad743f-28b9-41f1-81b8-c1d285503d0e', '2022-04-13 20:16:00', 'Maths LPP', 1),
+('Operating System', '2b2d65c6-0bda-4575-9f09-273082828289', '2022-04-30 00:39:00', 'Meet 1', 2),
+('MPR', '7ad2186b-7446-4f81-8b3f-99cabc2fa3f3', '2022-04-30 20:46:00', 'Meet 1', 3);
 
 -- --------------------------------------------------------
 
@@ -96,7 +143,7 @@ CREATE TABLE `notes` (
 --
 
 INSERT INTO `notes` (`teamname`, `fileaddress`, `id`, `filename`) VALUES
-('Maths', 'C:UserskhushDesktop\nawabcollege-spacepublicuploads/2003013 Ex1.pdf', 1, '2003013 Ex1.pdf');
+('MPR', 'C:UserskhushDesktop\nawabcollege-spacepublicuploads/AOA JOURNAL.pdf', 1, 'AOA JOURNAL.pdf');
 
 -- --------------------------------------------------------
 
@@ -116,10 +163,7 @@ CREATE TABLE `notices` (
 --
 
 INSERT INTO `notices` (`id`, `email`, `date`, `msg`) VALUES
-(1, 'tr@g', '2022-04-04 17:24:51', 'Tommorow is Holiday'),
-(2, 'tr@g', '2022-04-04 17:25:41', 'PHP code is usually processed on a web server by a PHP interpreter implemented as a module, a daemon'),
-(3, 'tr@g', '2022-04-04 17:26:27', 'PHP code is usually processed on a web server by a PHP interpreter implemented as a module, a daemon or as a Common Gateway Interface (CGI) executable. On a web server, the result of the interpreted and executed PHP code – which may be any type of data, such as generated HTML or binary image data – would form the whole or part of an HTTP response. Various web template systems, web content management systems, and web frameworks exist which can be employed to orchestrate or facilitate the generati'),
-(4, 'tr@g', '2022-04-12 20:17:31', 'lets check notice');
+(1, 'tasneem@gmail.com', '2022-04-29 20:48:25', 'notice from teacher side');
 
 -- --------------------------------------------------------
 
@@ -138,10 +182,38 @@ CREATE TABLE `study_on` (
 --
 
 INSERT INTO `study_on` (`id`, `team_name`, `member`) VALUES
-(1, 'Maths', 's1@g'),
-(2, 'Maths', 's2@g'),
-(3, 'Maths', 's3@g'),
-(4, 'Maths', 's4@g');
+(4, 'Computer C1', 'rashid@gmail.com'),
+(5, 'Computer C1', 'rehan@gmail.com'),
+(6, 'Computer C1', 'yasin@gmail.com'),
+(7, 'Computer C1', 'amit@gmail.com'),
+(8, 'Computer C1', 'akhil@gmail.com'),
+(9, 'Computer C1', 'komalika@gmail.com'),
+(10, 'Computer C1', 'prem@gmail.com'),
+(11, 'Computer C1', 'daksha@gmail.com'),
+(12, 'Computer C2', 'viren@gmail.com'),
+(13, 'Computer C2', 'dhirit@gmail.com'),
+(14, 'Computer C2', 'ishita@gmail.com'),
+(15, 'Computer C2', 'tamanna@gmail.com'),
+(16, 'Computer C2', 'aditya@gmail.com'),
+(17, 'Computer C2', 'amaan@gmail.com'),
+(18, 'Computer C2', 'rachit@gmail.com'),
+(19, 'Computer C2', 'jay@gmail.com'),
+(20, 'Electical E1', 'riya@gmail.com'),
+(21, 'Electical E1', 'khushi@gmail.com'),
+(22, 'Electical E1', 'roshan@gmail.com'),
+(23, 'Electical E1', 'hiten@gmail.com'),
+(24, 'Electical E1', 'leena@gmail.com'),
+(25, 'Electical E1', 'mainsh@gmail.com'),
+(26, 'Electical E1', 'piyus@gmail.com'),
+(27, 'Electical E1', 'tanhishq@gmail.com'),
+(28, 'Electical E2', 'makek@gmail.com'),
+(29, 'Electical E2', 'yuvraj@gmail.com'),
+(30, 'Electical E2', 'omkar@gmail.com'),
+(31, 'Electical E2', 'auysh@gmail.com'),
+(32, 'Electical E2', 'jas@gmail.com'),
+(33, 'Electical E2', 'mohit@gmail.com'),
+(34, 'Electical E2', 'hiten@gmail.com'),
+(35, 'Electical E2', 'karan@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -160,7 +232,10 @@ CREATE TABLE `teaches_on` (
 --
 
 INSERT INTO `teaches_on` (`id`, `email`, `team_name`) VALUES
-(1, 'tr@g', 'Maths');
+(2, 'tasneem@gmail.com', 'Computer C1'),
+(3, 'tasneem@gmail.com', 'Computer C2'),
+(4, 'tasneem@gmail.com', 'Electical E1'),
+(5, 'tasneem@gmail.com', 'Electical E2');
 
 -- --------------------------------------------------------
 
@@ -179,7 +254,10 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`id`, `team_name`, `team_description`) VALUES
-(1, 'Maths', 'SEM 4');
+(2, 'Computer C1', ''),
+(3, 'Computer C2', ''),
+(4, 'Electical E1', ''),
+(5, 'Electical E2', '');
 
 -- --------------------------------------------------------
 
@@ -191,21 +269,46 @@ CREATE TABLE `userdetail` (
   `id` int(11) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `status` text NOT NULL
+  `status` text NOT NULL,
+  `uname` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userdetail`
 --
 
-INSERT INTO `userdetail` (`id`, `email`, `password`, `status`) VALUES
-(1, 'md.r.a.n.786@gmail.com', '123', 'student'),
-(2, 'tr@g', '123', 'teacher'),
-(3, 's1@g', '123', 'student'),
-(4, 's2@g', '123', 'student'),
-(5, 's3@g', '123', 'student'),
-(6, 's4@g', '123', 'student'),
-(7, 's5@g', '123', 'student');
+INSERT INTO `userdetail` (`id`, `email`, `password`, `status`, `uname`) VALUES
+(8, 'tasneem@gmail.com', '123', 'teacher', 'Tasneem Mirza'),
+(9, 'rashid@gmail.com', '123', 'student', 'Md. Rashid Aziz'),
+(10, 'rehan@gmail.com', '123', 'student', 'Rehan Gandhi'),
+(11, 'yasin@gmail.com', '123', 'student', 'Yasin Khan'),
+(12, 'amit@gmail.com', '123', 'student', 'Amit Dubey'),
+(13, 'akhil@gmail.com', '123', 'student', 'Akhil Achairya'),
+(17, 'komalika@gmail.com', '123', 'student', 'Komalika Achairya'),
+(18, 'prem@gmail.com', '123', 'student', 'Prem Achairya'),
+(19, 'daksha@gmail.com', '123', 'student', 'Daksha Aeer'),
+(20, 'viren@gmail.com', '123', 'student', 'Viren Agicha'),
+(21, 'dhirit@gmail.com', '123', 'student', 'Dhirti Ahuja'),
+(22, 'ishita@gmail.com', '123', 'student', 'Ishita Ahuja'),
+(23, 'tamanna@gmail.com', '123', 'student', 'Tammana Ahuja'),
+(24, 'aditya@gmail.com', '123', 'student', 'Aditya Rajesh'),
+(25, 'amaan@gmail.com', '123', 'student', 'Amaan Ansari'),
+(26, 'rachit@gmail.com', '123', 'student', 'Rachit Arora'),
+(27, 'jay@gmail.com', '123', 'student', 'Jay Aslaliya'),
+(28, 'riya@gmail.com', '123', 'student', 'Riya Bajaj'),
+(29, 'khushi@gmail.com', '123', 'student', 'Khushi Batra'),
+(30, 'roshan@gmail.com', '123', 'student', 'Roshan Bagchandani'),
+(31, 'hiten@gmail.com', '123', 'student', 'Hiten Bharti'),
+(32, 'leena@gmail.com', '123', 'student', 'Leena Bhatia'),
+(33, 'mainsh@gmail.com', '123', 'student', 'Manish Bhatia'),
+(34, 'piyus@gmail.com', '123', 'student', 'Piyush Bhatia'),
+(35, 'tanhishq@gmail.com', '123', 'student', 'Tanhisq Bhatia'),
+(36, 'tanhishq@gmail.com', '123', 'student', 'Tanhisq Bhatia'),
+(37, 'tanhishq@gmail.com', '123', 'student', 'Tanhisq Bhatia'),
+(38, 'yuvraj@gmail.com', '123', 'student', 'Yuvraj Kaustubh'),
+(39, 'omkar@gmail.com', '123', 'student', 'Omkar Bhosle'),
+(40, 'auysh@gmail.com', '123', 'student', 'Auyush Bothra'),
+(41, 'makek@gmail.com', '123', 'student', 'Mahek Budrani');
 
 --
 -- Indexes for dumped tables
@@ -221,6 +324,12 @@ ALTER TABLE `assignment`
 -- Indexes for table `assignment-upload`
 --
 ALTER TABLE `assignment-upload`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `marks`
+--
+ALTER TABLE `marks`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -282,10 +391,16 @@ ALTER TABLE `assignment-upload`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `marks`
+--
+ALTER TABLE `marks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT for table `meeting`
 --
 ALTER TABLE `meeting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `notes`
@@ -297,31 +412,31 @@ ALTER TABLE `notes`
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `study_on`
 --
 ALTER TABLE `study_on`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `teaches_on`
 --
 ALTER TABLE `teaches_on`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `userdetail`
 --
 ALTER TABLE `userdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
