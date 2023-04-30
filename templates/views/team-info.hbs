@@ -113,6 +113,8 @@
                     <button class="side-btn" onclick="document.getElementById('addMarks').style.display='block'">Add Marks</button>
                     <button class="side-btn"
                         onclick="document.getElementById('upload-notes').style.display='block'">Upload Notes</button>
+                    <button class="side-btn" onclick="document.getElementById('setmeeting').style.display='block'">Set
+                        Meeting</button>
                     {{else}}
                     <button class="side-btn"
                         onclick="document.getElementById('submitAssignment').style.display='block'">Submit
@@ -291,6 +293,24 @@
             </div>
         </form>
     </div>
+    {{!-- set meetings --}}
+    <div id="setmeeting" class="modal">
+        <form class="modal-content animate" id="set-meeting">
+            <h2>Set Meeting</h2>
+            <div class="pop-container">
+                <label for="meeting-title"><b>Meeting Title</b></label>
+                <input type="text" placeholder="Enter Username" name="meeting-title" required>
+                <label for="meet-date"><b>Meeting Date and Time</b></label>
+                <input type="datetime-local" id="birthdaytime" name="meet-date" required>
+                <button type="submit">Set Meeting</button>
+            </div>
+            <p id="meeting-set" style="text-align: center; color: green"></p>
+            <div class="pop-container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('setmeeting').style.display='none'"
+                    class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
     {{/if}}
 </body>
 <script>
@@ -337,7 +357,21 @@
                 return false;
             });
     })
-
+    document.getElementById("set-meeting").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const meetingtitle = document.getElementsByName("meeting-title")[0].value;
+        const meetingdate = document.getElementsByName("meet-date")[0].value;
+        const meetingset = document.getElementById("meeting-set");
+        $.post("/set-meeting", {
+            teamname,
+            meetingdate,
+            meetingtitle
+        },
+            function (data, status) {
+                meetingset.innerText = "Meeting Set"
+                return false;
+            });
+    })
     document.getElementById("add-Marks").addEventListener("submit", (e) => {
         e.preventDefault();
         const teamname = document.getElementsByClassName("team-name")[0].innerText;
